@@ -43,15 +43,20 @@ public class Main {
         for (int i = 0; i < 3; i++) {
             System.out.print("Введите назвыание автомобиля: ");
             String name = scanner.next();
+            int speed = 0;
+            boolean validInput = false; // Добавлено для отслеживания корректности ввода
 
-            int speed;
-            while (true) {
+            while (!validInput) {
                 System.out.print("Введите скорость автомобиля (0-250 km/h): ");
-                speed = scanner.nextInt();
-                if (speed >= 0 && speed <= 250) {
-                    break;
-                } else {
-                    System.out.println("Недопустимая скорость, пожалуйста, введите значение от 0 до 250");
+                try {
+                    speed = Integer.parseInt(scanner.next()); // Изменено: используем parseInt для обработки ввода
+                    if (speed >= 0 && speed <= 250) {
+                        validInput = true; // Ввод корректен, выходим из цикла
+                    } else {
+                        System.out.println("Недопустимая скорость, пожалуйста, введите значение от 0 до 250");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка ввода, пожалуйста, введите числовое значение для скорости"); // Обработка некорректного ввода
                 }
             }
 
